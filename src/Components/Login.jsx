@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [formData, setformData] = useState({
     email: "",
     password: "",
   });
   function login(e) {
     e.preventDefault();
-    console.log(formData);
+    setIsLoggedIn(true);
   }
 
   function handleChange(e) {
