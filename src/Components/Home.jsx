@@ -22,6 +22,11 @@ const Home = () => {
         />
         <button type="submit">Save</button>
       </form>
+      <ul>
+        {taskList.map((task, i) => (
+          <li key={i}>{task}</li>
+        ))}
+      </ul>
     </div>
   );
 };
