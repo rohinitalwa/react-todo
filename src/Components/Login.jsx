@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../Contexts/AuthContext";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const { loginUser } = useContext(AuthContext);
   const [formData, setformData] = useState({
     email: "",
     password: "",
   });
   function login(e) {
     e.preventDefault();
-    setIsLoggedIn(true);
+    loginUser(formData);
   }
 
   function handleChange(e) {
@@ -18,23 +20,25 @@ const Login = ({ setIsLoggedIn }) => {
     <div>
       <form action="" onSubmit={login}>
         <div>
-          <label htmlFor="">email</label>
+          <label htmlFor="email">email</label>
           <input
             type="email"
             placeholder="enter email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            id="email"
           />
         </div>
         <div>
-          <label htmlFor="">password</label>
+          <label htmlFor="password">password</label>
           <input
             type="password"
             placeholder="enter password"
             name="password"
             value={formData.password}
             onChange={handleChange}
+            id="password"
           />
         </div>
         <button type="submit">Login</button>
