@@ -46,6 +46,11 @@ const Home = () => {
     setEditingTask(null);
   }
 
+  function handleDelete(index) {
+    const tasks = taskList.filter((_, i) => i !== index);
+    setTaskList([...tasks]);
+  }
+
   return (
     <div>
       <h1>Welcome to react-todo</h1>
@@ -71,6 +76,7 @@ const Home = () => {
               <span>
                 <span>{task}</span>
                 <button onClick={() => editTask(i)}>Edit</button>
+                <button onClick={() => handleDelete(i)}>Delete</button>
               </span>
             ) : (
               <span>
