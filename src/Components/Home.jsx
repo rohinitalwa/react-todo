@@ -1,24 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, setTask } from "../Store/TaskSlice";
 
 const Home = () => {
-  const [task, setTask] = useState("");
-  const [taskList, setTaskList] = useState([]);
-  const [error, setError] = useState("");
+  // const [task, setTask] = useState("");
+  // const [taskList, setTaskList] = useState([]);
+  // const [error, setError] = useState("");
   const [upadteError, setUpadteError] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
 
+  const { taskList, task, error } = useSelector((state) => state.taskStore);
+  const dispatch = useDispatch();
+
   function saveTask(e) {
     e.preventDefault();
-    const newTask = task.trim();
-    if (newTask == "") {
-      setError("Task cannot be empty!");
-    } else if (taskList.includes(newTask)) {
-      setError("Task already exists!");
-    } else {
-      setTaskList((curVal) => [...curVal, newTask]);
-      setTask("");
-    }
+    dispatch(addTask(task));
   }
 
   function editTask(index) {
@@ -40,7 +37,7 @@ const Home = () => {
     }
     const tasks = taskList.slice();
     tasks[editingIndex] = editingTask;
-    setTaskList([...tasks]);
+    // setTaskList([...tasks]);
 
     setEditingIndex(null);
     setEditingTask(null);
@@ -48,7 +45,7 @@ const Home = () => {
 
   function handleDelete(index) {
     const tasks = taskList.filter((_, i) => i !== index);
-    setTaskList([...tasks]);
+    // setTaskList([...tasks]);
   }
 
   return (
@@ -61,8 +58,8 @@ const Home = () => {
           name="task"
           value={task}
           onChange={(e) => {
-            setTask(e.target.value);
-            setError("");
+            dispatch(setTask(e.target.value));
+            // setError("");
           }}
         />
         <button type="submit">Save</button>
